@@ -19,7 +19,8 @@ namespace ZombiePong
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D background, spritesheet;
-
+        int score1 = 0, score2 = 0;
+        float ballSpeed = 300;
         Sprite paddle1, paddle2, ball;
 
         List<Sprite> zombies = new List<Sprite>();
@@ -104,16 +105,46 @@ namespace ZombiePong
                 this.Exit();
 
             // TODO: Add your update logic here
+            
             ball.Update(gameTime);
+
+            //Paddle 2
             paddle2.Location = new Vector2(paddle2.Location.X, ball.Center.Y - 75);
             if (paddle2.IsBoxColliding(ball.BoundingBoxRect))
+            {
                 ball.Velocity *= new Vector2(-1, 1);
+                ballSpeed = ballSpeed + 25;
+            }
+      
             MouseState ms = Mouse.GetState();
+
+            // Computer scores
+            if (ball.Location.X < -32)
+            {
+                ball.Location = new Vector2(300, 400);
+                ball.Velocity = new Vector2(280, 80);
+                score2++;
+                ballSpeed = 150;
+            }
+               
+            Window.Title = "Player: " +score1 + " Computer: " +score2;
             paddle1.Location = new Vector2(paddle1.Location.X, (float)ms.Y);
             if (paddle1.IsBoxColliding(ball.BoundingBoxRect))
+            {
                 ball.Velocity *= new Vector2(-1, 1);
+                ballSpeed = ballSpeed + 25;
+            }
+
+            // Ceiling + Floor reflection
             if (ball.Location.Y < 0 || ball.Location.Y > this.Window.ClientBounds.Height-ball.BoundingBoxRect.Height)
                 ball.Velocity *= new Vector2(1, -1);
+
+            // Ball Speed manage
+            Vector2 vel = ball.Velocity;
+            vel.Normalize();
+            vel = vel * ballSpeed;
+            ball.Velocity = vel;
+
             for (int i = 0; i < zombies.Count; i++)
             {
                 zombies[i].Update(gameTime);
