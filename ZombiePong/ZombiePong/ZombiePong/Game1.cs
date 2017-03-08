@@ -20,7 +20,7 @@ namespace ZombiePong
         SpriteBatch spriteBatch;
         Texture2D background, spritesheet;
         int score1 = 0, score2 = 0;
-        float ballSpeed = 300;
+        float ballSpeed = 500;
         Sprite paddle1, paddle2, ball;
 
         List<Sprite> zombies = new List<Sprite>();
@@ -115,7 +115,7 @@ namespace ZombiePong
                 ball.Velocity *= new Vector2(-1, 1);
                 ballSpeed = ballSpeed + 25;
             }
-      
+            
             MouseState ms = Mouse.GetState();
 
             // Computer scores
