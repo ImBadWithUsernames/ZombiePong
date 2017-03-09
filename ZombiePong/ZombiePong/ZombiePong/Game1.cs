@@ -20,7 +20,7 @@ namespace ZombiePong
         SpriteBatch spriteBatch;
         Texture2D background, spritesheet;
         int score1 = 0, score2 = 0;
-        float ballSpeed = 500;
+        float ballSpeed = 120;
         Sprite paddle1, paddle2, ball;
 
         List<Sprite> zombies = new List<Sprite>();
@@ -107,9 +107,10 @@ namespace ZombiePong
             // TODO: Add your update logic here
             
             ball.Update(gameTime);
+            paddle2.Update(gameTime);
 
             //Paddle 2
-            paddle2.Location = new Vector2(paddle2.Location.X, ball.Center.Y - 75);
+            //paddle2.Location = new Vector2(paddle2.Location.X, ball.Center.Y - 75);
             if (paddle2.IsBoxColliding(ball.BoundingBoxRect))
             {
                 ball.Velocity *= new Vector2(-1, 1);
@@ -124,6 +125,14 @@ namespace ZombiePong
                 ball.Location = new Vector2(300, 400);
                 ball.Velocity = new Vector2(280, 80);
                 score2++;
+                ballSpeed = 150;
+            }
+
+            if (ball.Location.X > 1000)
+            {
+                ball.Location = new Vector2(300, 400);
+                ball.Velocity = new Vector2(280, 80);
+                score1++;
                 ballSpeed = 150;
             }
                
@@ -145,6 +154,14 @@ namespace ZombiePong
             vel = vel * ballSpeed;
             ball.Velocity = vel;
 
+            if(ball.Location.Y > paddle2.Location.Y)
+            {
+                paddle2.Velocity = new Vector2(0, 100);
+            }
+            else
+            {
+                paddle2.Velocity = new Vector2(0, -100);
+            }
             for (int i = 0; i < zombies.Count; i++)
             {
                 zombies[i].Update(gameTime);
