@@ -113,6 +113,33 @@ namespace ZombiePong
             //paddle2.Location = new Vector2(paddle2.Location.X, ball.Center.Y - 75);
             if (paddle2.IsBoxColliding(ball.BoundingBoxRect))
             {
+                // If the ball hits at the top of the paddle
+                if (ball.Center.Y > paddle2.Center.Y)
+                {
+                    if (ball.Velocity.Y < 0) // Going up
+                    {
+                        ball.Velocity *= new Vector2(1, 10);
+                        ballSpeed = ballSpeed + 25;
+                    }
+                    else  // ball going down
+                    {
+                        ball.Velocity *= new Vector2(1, -10);
+                        ballSpeed = ballSpeed + 25;
+                    }
+
+                }
+                else // If the ball hits at the bottom of the paddle
+                {
+                    if (ball.Velocity.Y < 0) // Going up
+                    {
+                        ball.Velocity *= new Vector2(1, 10);
+                    }
+                    else  // ball going down
+                    {
+                        ball.Velocity *= new Vector2(1, -10);
+                    }
+
+                }
                 ball.Velocity *= new Vector2(-1, 1);
                 ballSpeed = ballSpeed + 25;
             }
@@ -144,6 +171,7 @@ namespace ZombiePong
                 ballSpeed = ballSpeed + 25;
             }
 
+            
             // Ceiling + Floor reflection
             if (ball.Location.Y < 0 || ball.Location.Y > this.Window.ClientBounds.Height-ball.BoundingBoxRect.Height)
                 ball.Velocity *= new Vector2(1, -1);
@@ -156,12 +184,14 @@ namespace ZombiePong
 
             if(ball.Location.Y > paddle2.Location.Y)
             {
-                paddle2.Velocity = new Vector2(0, 100);
+                paddle2.Velocity = new Vector2(0, 150);
             }
             else
             {
-                paddle2.Velocity = new Vector2(0, -100);
+                paddle2.Velocity = new Vector2(0, -150);
             }
+
+            
             for (int i = 0; i < zombies.Count; i++)
             {
                 zombies[i].Update(gameTime);
