@@ -118,12 +118,12 @@ namespace ZombiePong
                 {
                     if (ball.Velocity.Y < 0) // Going up
                     {
-                        ball.Velocity *= new Vector2(1, 10);
+                        ball.Velocity *= new Vector2(2, 3);
                         ballSpeed = ballSpeed + 25;
                     }
                     else  // ball going down
                     {
-                        ball.Velocity *= new Vector2(1, -10);
+                        ball.Velocity *= new Vector2(2, 3);
                         ballSpeed = ballSpeed + 25;
                     }
 
@@ -132,14 +132,17 @@ namespace ZombiePong
                 {
                     if (ball.Velocity.Y < 0) // Going up
                     {
-                        ball.Velocity *= new Vector2(1, 10);
+                        ball.Velocity *= new Vector2(2, 3);
+                        ballSpeed = ballSpeed + 25;
                     }
                     else  // ball going down
                     {
-                        ball.Velocity *= new Vector2(1, -10);
+                        ball.Velocity *= new Vector2(2, 3);
+                        ballSpeed = ballSpeed + 25;
                     }
 
                 }
+
                 ball.Velocity *= new Vector2(-1, 1);
                 ballSpeed = ballSpeed + 25;
             }
@@ -152,7 +155,7 @@ namespace ZombiePong
                 ball.Location = new Vector2(300, 400);
                 ball.Velocity = new Vector2(280, 80);
                 score2++;
-                ballSpeed = 150;
+                ballSpeed = 300;
             }
 
             if (ball.Location.X > 1000)
@@ -160,7 +163,7 @@ namespace ZombiePong
                 ball.Location = new Vector2(300, 400);
                 ball.Velocity = new Vector2(280, 80);
                 score1++;
-                ballSpeed = 150;
+                ballSpeed = 300;
             }
                
             Window.Title = "Player: " +score1 + " Computer: " +score2;
@@ -184,11 +187,11 @@ namespace ZombiePong
 
             if(ball.Location.Y > paddle2.Location.Y)
             {
-                paddle2.Velocity = new Vector2(0, 150);
+                paddle2.Velocity = new Vector2(0, 200);
             }
             else
             {
-                paddle2.Velocity = new Vector2(0, -150);
+                paddle2.Velocity = new Vector2(0, -200);
             }
 
             
